@@ -2,7 +2,7 @@
 
 <div align="center"><h2>SpaceX Data</h2> </div>
   <br>
-![SpaceX-Logo](https://user-images.githubusercontent.com/100201401/221127097-489ed83d-4547-44f6-baec-b2c3d35281ce.png)
+
 
 <p>You can access all the data of SpaceX company with this application.</p>
  <br>
@@ -14,8 +14,7 @@
         <li>Ships information</li>
         <li>Cores information</li>
         <li>Company information</li>
-        <liRecently sent rockets and results.</li>![SpaceX-Logo](https://user-images.githubusercontent.com/100201401/221127097-489ed83d-4547-44f6-baec-b2c3d35281ce.png)
-
+        <liRecently sent rockets and results.</li>
       </List>
  <br>
       <br>
@@ -27,3 +26,4 @@
 <br>
 ![cores-removebg-preview](https://user-images.githubusercontent.com/100201401/221126694-b4d6fdf0-00fa-4eb1-aa70-a82a6ad3552f.png)
 ![capsules-removebg-preview](https://user-images.githubusercontent.com/100201401/221126707-256b3736-ab04-4d08-b82b-23dc9a53d36a.png)
+![SpaceX-Logo](https://user-images.githubusercontent.com/100201401/221127097-489ed83d-4547-44f6-baec-b2c3d35281ce.png)
