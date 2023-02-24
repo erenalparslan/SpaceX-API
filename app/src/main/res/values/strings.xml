@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">SpaceXApiJava</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_space_x">SpaceX</string>
+    <string name="tab_text_1">Rockets</string>
+    <string name="tab_text_2">Capsules</string>
+    <string name="tab_text_3">Cores</string>
+    <string name="tab_text_4">Ships</string>
+    <string name="tab_text_5">Company</string>
+
+</resources>
