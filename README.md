@@ -19,8 +19,7 @@
  <br>
       <br>
 
-
-![ships-removebg-preview](https://user-images.githubusercontent.com/100201401/221126622-260490c8-9c85-4186-84f8-99c339d6e00f.png)
+![Screenshot_2023-02-24_111740-removebg-preview](https://user-images.githubusercontent.com/100201401/221127893-83c9e526-a3ae-42c2-8695-8ab7c9a77fa5.png)
 ![rockets-removebg-preview](https://user-images.githubusercontent.com/100201401/221126677-be50232f-49ea-490d-91be-b1f50c575931.png)
 <br>
 <br>
