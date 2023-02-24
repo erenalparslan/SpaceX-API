@@ -2,7 +2,7 @@
 
 <div align="center"><h2>SpaceX Data</h2> </div>
   <br>
-![SpaceX-Logo](https://user-images.githubusercontent.com/100201401/221126960-9ce8cc6a-9a42-4ce2-9591-65567cd7e99e.png)
+![SpaceX-Logo](https://user-images.githubusercontent.com/100201401/221127097-489ed83d-4547-44f6-baec-b2c3d35281ce.png)
 
 <p>You can access all the data of SpaceX company with this application.</p>
  <br>
@@ -14,7 +14,8 @@
         <li>Ships information</li>
         <li>Cores information</li>
         <li>Company information</li>
-        <liRecently sent rockets and results.</li>
+        <liRecently sent rockets and results.</li>![SpaceX-Logo](https://user-images.githubusercontent.com/100201401/221127097-489ed83d-4547-44f6-baec-b2c3d35281ce.png)
+
       </List>
  <br>
       <br>
