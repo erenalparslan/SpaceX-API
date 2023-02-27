@@ -32,14 +32,18 @@ You can access all the data of SpaceX company with this application.What are the
 ## Screenshots
 
 <div align="center">
- ![Screenshot_2023-02-24_111740-removebg-preview](https://user-images.githubusercontent.com/100201401/221127893-83c9e526-a3ae-42c2-8695-8ab7c9a77fa5.png)
-![rockets-removebg-preview](https://user-images.githubusercontent.com/100201401/221126677-be50232f-49ea-490d-91be-b1f50c575931.png)
-![cores-removebg-preview](https://user-images.githubusercontent.com/100201401/221126694-b4d6fdf0-00fa-4eb1-aa70-a82a6ad3552f.png)
+ ![Screenshot_2023-02-24_111740-removebg-preview](https://user-images.githubusercontent.com/100201401/221603197-2a59b76c-d4fd-4b59-a4ff-667826805732.png)
+![ships-removebg-preview](https://user-images.githubusercontent.com/100201401/221603206-72921e32-ff5c-427b-bb8e-0fd41cba2bda.png)
+![rockets-removebg-preview](https://user-images.githubusercontent.com/100201401/221603213-f4ca4194-6661-4ded-9594-75c3b29d8246.png)
+  <br>
+![cores-removebg-preview](https://user-images.githubusercontent.com/100201401/221603215-4a5586d5-889f-4d4c-b5d2-0c9e9eb5d12e.png)
+![capsules-removebg-preview](https://user-images.githubusercontent.com/100201401/221603219-87b8e2d9-68b0-42f1-9c76-a45df4640eec.png)
+
+  
 
 </div>
 
 <div align="center">
-![capsules-removebg-preview](https://user-images.githubusercontent.com/100201401/221126707-256b3736-ab04-4d08-b82b-23dc9a53d36a.png)
 ![SpaceX-Logo](https://user-images.githubusercontent.com/100201401/221127097-489ed83d-4547-44f6-baec-b2c3d35281ce.png)
 </div>
 
