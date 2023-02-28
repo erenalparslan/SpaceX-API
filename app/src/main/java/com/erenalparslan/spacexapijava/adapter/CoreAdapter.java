@@ -7,10 +7,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.erenalparslan.spacexapijava.R;
-import com.erenalparslan.spacexapijava.model.Capsule;
+import com.erenalparslan.spacexapijava.View.details.CoreDetailFragment;
 import com.erenalparslan.spacexapijava.model.Core;
 
 import java.util.ArrayList;
@@ -35,6 +38,18 @@ public class CoreAdapter extends RecyclerView.Adapter<CoreAdapter.RowHolder> {
     @Override
     public void onBindViewHolder(@NonNull CoreAdapter.RowHolder holder, int position) {
         holder.bind(coreArrayList.get(position), colors, position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = ((AppCompatActivity) v.getContext()).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.replace(R.id.frameLayout, CoreDetailFragment.newInstance(coreArrayList.get(holder.getAdapterPosition())));
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+            }
+        });
     }
 
     @Override

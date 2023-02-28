@@ -30,7 +30,7 @@
         tools:layout_editor_absoluteX="120dp"
         tools:layout_editor_absoluteY="45dp"
         android:layout_marginLeft="5dp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white" />
 
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.erenalparslan.spacexapijava.View;
+package com.erenalparslan.spacexapijava.View.fragments;
 
 import android.os.Bundle;
 

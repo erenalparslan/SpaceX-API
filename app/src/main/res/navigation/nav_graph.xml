@@ -3,24 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/rocketFragment">
+    app:startDestination="@id/shipFragment">
 
     <fragment
-        android:id="@+id/rocketFragment"
-        android:name="com.erenalparslan.spacexapijava.View.RocketFragment"
-        android:label="fragment_rocket"
-        tools:layout="@layout/fragment_rocket" >
+        android:id="@+id/shipFragment"
+        android:name="com.erenalparslan.spacexapijava.View.fragments.ShipFragment"
+        android:label="fragment_ship"
+        tools:layout="@layout/fragment_ship">
         <action
-            android:id="@+id/action_rocketFragment_to_capsuleFragment"
-            app:destination="@id/capsuleFragment" />
+            android:id="@+id/action_shipFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.erenalparslan.spacexapijava.View.details.ShipDetailFragment"
+        android:label="activity_details"
+        tools:layout="@layout/activity_details" />
+    <fragment
+        android:id="@+id/rocketFragment"
+        android:name="com.erenalparslan.spacexapijava.View.fragments.RocketFragment"
+        android:label="fragment_rocket"
+        tools:layout="@layout/fragment_rocket">
+        <action
+            android:id="@+id/action_rocketFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
     <fragment
         android:id="@+id/capsuleFragment"
-        android:name="com.erenalparslan.spacexapijava.View.CapsuleFragment"
+        android:name="com.erenalparslan.spacexapijava.View.fragments.CapsuleFragment"
         android:label="fragment_capsule"
-        tools:layout="@layout/fragment_capsule" >
+        tools:layout="@layout/fragment_capsule">
         <action
-            android:id="@+id/action_capsuleFragment_to_rocketFragment"
-            app:destination="@id/rocketFragment" />
+            android:id="@+id/action_capsuleFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/coreFragment"
+        android:name="com.erenalparslan.spacexapijava.View.fragments.CoreFragment"
+        android:label="fragment_core"
+        tools:layout="@layout/fragment_core">
+        <action
+            android:id="@+id/action_coreFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
 </navigation>

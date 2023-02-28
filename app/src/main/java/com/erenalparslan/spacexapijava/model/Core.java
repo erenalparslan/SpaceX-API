@@ -7,4 +7,8 @@ public class Core {
     public String core_serial;
     @SerializedName("details")
     public String details;
+    @SerializedName("status")
+    public String status;
+
+
 }

@@ -1,4 +1,4 @@
-package com.erenalparslan.spacexapijava.View;
+package com.erenalparslan.spacexapijava.View.fragments;
 
 import android.os.Bundle;
 
@@ -13,11 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.erenalparslan.spacexapijava.R;
-import com.erenalparslan.spacexapijava.adapter.CoreAdapter;
 import com.erenalparslan.spacexapijava.adapter.ShipAdapter;
-import com.erenalparslan.spacexapijava.model.Core;
 import com.erenalparslan.spacexapijava.model.Ship;
-import com.erenalparslan.spacexapijava.service.ICoreApi;
 import com.erenalparslan.spacexapijava.service.IShipApi;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -32,62 +29,63 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class CoreFragment extends Fragment {
-
-
-    public static CoreFragment newInstance() {
-
-        return new CoreFragment();
+public class ShipFragment extends Fragment {
+    public static ShipFragment newInstance() {
+        return new ShipFragment();
     }
 
-    ArrayList<Core> core;
-    private String base_url="https://api.spacexdata.com/";
-    Retrofit retrofit;
-    Gson gson=new GsonBuilder().setLenient().create();
-    RecyclerView recyclerView;
-    CoreAdapter coreAdapter;
 
-    public void loadData(){
-        ICoreApi iCoreApi=retrofit.create(ICoreApi.class);
-        Call<List<Core>> call=iCoreApi.getData();
-        call.enqueue(new Callback<List<Core>>() {
+    ArrayList<Ship> ships;
+    private String base_url = "https://api.spacexdata.com/";
+    Retrofit retrofit;
+    Gson gson = new GsonBuilder().setLenient().create();
+    RecyclerView recyclerView;
+    ShipAdapter shipAdapter;
+
+
+    public void loadData() {
+        IShipApi iShipApi = retrofit.create(IShipApi.class);
+        Call<List<Ship>> call = iShipApi.getData();
+        call.enqueue(new Callback<List<Ship>>() {
             @Override
-            public void onResponse(Call<List<Core>> call, Response<List<Core>> response) {
-                if(response.isSuccessful()){
-                    List<Core> responseList= response.body();
-                    core=new ArrayList<>(responseList);
+            public void onResponse(Call<List<Ship>> call, Response<List<Ship>> response) {
+                if (response.isSuccessful()) {
+                    List<Ship> responseList = response.body();
+                    ships = new ArrayList<>(responseList);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    coreAdapter=new CoreAdapter(core);
-                    recyclerView.setAdapter(coreAdapter);
+                    shipAdapter = new ShipAdapter(ships);
+                    recyclerView.setAdapter(shipAdapter);
 
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Core>> call, Throwable t) {
+            public void onFailure(Call<List<Ship>> call, Throwable t) {
 
             }
         });
     }
 
-    @Override
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        retrofit =new Retrofit.Builder().baseUrl(base_url).addConverterFactory(GsonConverterFactory.create(gson)).build();
-
+        retrofit = new Retrofit.Builder().baseUrl(base_url).addConverterFactory(GsonConverterFactory.create(gson)).build();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_core, container, false);
+
+
+        return inflater.inflate(R.layout.fragment_ship, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        recyclerView=view.findViewById(R.id.recyclerCore);
+
+        recyclerView = view.findViewById(R.id.shipRecyclerView);
         loadData();
+
         super.onViewCreated(view, savedInstanceState);
     }
 }

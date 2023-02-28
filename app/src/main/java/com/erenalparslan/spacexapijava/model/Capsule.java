@@ -9,8 +9,10 @@ public class Capsule {
     public String capsule_serial;
     @SerializedName("details")
     public String details;
-
-
+    @SerializedName("type")
+    public String type;
+    @SerializedName("status")
+    public String status;
 
 
 }
