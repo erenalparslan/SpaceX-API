@@ -4,7 +4,7 @@
 
 You can access all the data of SpaceX company with this application.What are the last rockets sent? Who is SpaceX CTO? What are the features of the ships? Answers to all questions with their visuals are in this application. With its simple and stylish design, SpaceX Info is just for you.
 
-## Özellikler
+## Features
   <List>
         <li>Rocket information</li>
         <li>Capsule information</li>
@@ -22,6 +22,11 @@ You can access all the data of SpaceX company with this application.What are the
 - [Navigation Component](https://developer.android.com/guide/navigation)
 - [MVVM (Model-View-ViewModel)](https://developer.android.com/jetpack/docs/guide#recommended-app-arch)
 - [Dagger](https://dagger.dev)
+
+ ## Update
+ 
+  -Details Section Added
+  -Faster interface
 
 ## Setup
 1. Clone or download this repository
