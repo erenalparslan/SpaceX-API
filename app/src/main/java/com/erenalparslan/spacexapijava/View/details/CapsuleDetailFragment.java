@@ -45,7 +45,7 @@ public class CapsuleDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        
         return inflater.inflate(R.layout.fragment_capsule_detail, container, false);
     }
 
@@ -58,8 +58,8 @@ public class CapsuleDetailFragment extends Fragment {
         props2 = view.findViewById(R.id.prop2);
         props.setText(details);
         twName.setText(name);
-        props1.setText("Type = "+type);
-        props2.setText("Status = "+status);
+        props1.setText("Type = " + type);
+        props2.setText("Status = " + status);
 
         super.onViewCreated(view, savedInstanceState);
     }
