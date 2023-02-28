@@ -7,9 +7,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.erenalparslan.spacexapijava.R;
+import com.erenalparslan.spacexapijava.View.details.RocketDetailFragment;
 import com.erenalparslan.spacexapijava.model.Rocket;
 
 import java.util.ArrayList;
@@ -33,7 +37,19 @@ public class RocketAdapter extends RecyclerView.Adapter<RocketAdapter.RowHolder>
 
     @Override
     public void onBindViewHolder(@NonNull RocketAdapter.RowHolder holder, int position) {
-        holder.bind(rocketArrayList.get(position),colors,position);
+        holder.bind(rocketArrayList.get(position), colors, position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = ((AppCompatActivity) v.getContext()).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.replace(R.id.frameLayout, RocketDetailFragment.newInstance(rocketArrayList.get(holder.getAdapterPosition())));
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+            }
+        });
     }
 
     @Override
@@ -46,17 +62,18 @@ public class RocketAdapter extends RecyclerView.Adapter<RocketAdapter.RowHolder>
 
         TextView rocket_name;
         TextView id;
+
         public RowHolder(@NonNull View itemView) {
             super(itemView);
         }
 
-        public void bind(Rocket rocket,String[] colors, Integer position) {
+        public void bind(Rocket rocket, String[] colors, Integer position) {
             itemView.setBackgroundColor(Color.parseColor(colors[position % 2]));
             rocket_name = itemView.findViewById(R.id.rocketName);
-            id=itemView.findViewById(R.id.id);
+            id = itemView.findViewById(R.id.id);
 
             rocket_name.setText(rocket.rocket_name);
-            id.setText(rocket.id);
+            id.setText(rocket.description);
 
         }
     }

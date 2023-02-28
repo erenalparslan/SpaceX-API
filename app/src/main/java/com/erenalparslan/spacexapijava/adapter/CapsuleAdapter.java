@@ -7,11 +7,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.erenalparslan.spacexapijava.R;
+import com.erenalparslan.spacexapijava.View.details.CapsuleDetailFragment;
 import com.erenalparslan.spacexapijava.model.Capsule;
-
 
 
 import java.util.ArrayList;
@@ -21,6 +24,7 @@ public class CapsuleAdapter extends RecyclerView.Adapter<CapsuleAdapter.RowHolde
     ArrayList<Capsule> capsuleArrayList;
 
     private String[] colors = {"#144272", "#205295"};
+
     public CapsuleAdapter(ArrayList<Capsule> capsuleArrayList) {
         this.capsuleArrayList = capsuleArrayList;
     }
@@ -37,7 +41,19 @@ public class CapsuleAdapter extends RecyclerView.Adapter<CapsuleAdapter.RowHolde
 
     @Override
     public void onBindViewHolder(@NonNull RowHolder holder, int position) {
-        holder.bind(capsuleArrayList.get(position),colors,position);
+        holder.bind(capsuleArrayList.get(position), colors, position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = ((AppCompatActivity) v.getContext()).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                fragmentTransaction.replace(R.id.frameLayout, CapsuleDetailFragment.newInstance(capsuleArrayList.get(holder.getAdapterPosition())));
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+            }
+        });
     }
 
     @Override
@@ -45,7 +61,7 @@ public class CapsuleAdapter extends RecyclerView.Adapter<CapsuleAdapter.RowHolde
         return capsuleArrayList.size();
     }
 
-    public class RowHolder extends RecyclerView.ViewHolder{
+    public class RowHolder extends RecyclerView.ViewHolder {
         TextView serial_name;
         TextView details;
 
@@ -56,13 +72,11 @@ public class CapsuleAdapter extends RecyclerView.Adapter<CapsuleAdapter.RowHolde
         }
 
         public void bind(Capsule capsule, String[] colors, Integer position) {
-             itemView.setBackgroundColor(Color.parseColor(colors[position % 2]));
+            itemView.setBackgroundColor(Color.parseColor(colors[position % 2]));
             serial_name = itemView.findViewById(R.id.capsuleName);
-            details=itemView.findViewById(R.id.details);
+            details = itemView.findViewById(R.id.details);
             serial_name.setText(capsule.capsule_serial);
             details.setText(capsule.details);
-
-
 
 
         }

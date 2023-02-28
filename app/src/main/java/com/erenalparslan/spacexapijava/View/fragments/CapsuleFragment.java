@@ -1,4 +1,4 @@
-package com.erenalparslan.spacexapijava.View;
+package com.erenalparslan.spacexapijava.View.fragments;
 
 import android.os.Bundle;
 
@@ -32,28 +32,30 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CapsuleFragment extends Fragment {
 
-    public static CapsuleFragment newInstance(){
+    public static CapsuleFragment newInstance() {
         return new CapsuleFragment();
     }
 
-   ArrayList<Capsule> capsules;
-    private String base_url="https://api.spacexdata.com/";
+    ArrayList<Capsule> capsules;
+    private String base_url = "https://api.spacexdata.com/";
     Retrofit retrofit;
-    Gson gson=new GsonBuilder().setLenient().create();
+    Gson gson = new GsonBuilder().setLenient().create();
     RecyclerView recyclerView;
     CapsuleAdapter capsuleAdapter;
 
-    public void loadData(){
-        ICapsuleApi iCapsuleApi=retrofit.create(ICapsuleApi.class);
-        Call<List<Capsule>> call=iCapsuleApi.getData();
+    public void loadData() {
+        ICapsuleApi iCapsuleApi = retrofit.create(ICapsuleApi.class);
+        Call<List<Capsule>> call = iCapsuleApi.getData();
         call.enqueue(new Callback<List<Capsule>>() {
             @Override
             public void onResponse(Call<List<Capsule>> call, Response<List<Capsule>> response) {
-                if(response.isSuccessful()){
-                    List<Capsule> responseList= response.body();
-                    capsules=new ArrayList<>(responseList);
+                if (response.isSuccessful()) {
+                    List<Capsule> responseList = response.body();
+                    capsules = new ArrayList<>(responseList);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    capsuleAdapter=new CapsuleAdapter(capsules);
+
+
+                    capsuleAdapter = new CapsuleAdapter(capsules);
                     recyclerView.setAdapter(capsuleAdapter);
 
                 }
@@ -67,12 +69,10 @@ public class CapsuleFragment extends Fragment {
     }
 
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        retrofit =new Retrofit.Builder().baseUrl(base_url).addConverterFactory(GsonConverterFactory.create(gson)).build();
+        retrofit = new Retrofit.Builder().baseUrl(base_url).addConverterFactory(GsonConverterFactory.create(gson)).build();
     }
 
     @Override
@@ -84,7 +84,7 @@ public class CapsuleFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        recyclerView=view.findViewById(R.id.capsuleRecyclerView);
+        recyclerView = view.findViewById(R.id.capsuleRecyclerView);
         loadData();
         super.onViewCreated(view, savedInstanceState);
     }
