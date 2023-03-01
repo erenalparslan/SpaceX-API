@@ -16,12 +16,12 @@ You can access all the data of SpaceX company with this application.What are the
 
 ## Technologies
 
-- [Android Studio](https://developer.android.com/studio)
 - [SQLite](https://www.sqlite.org/)
 - [Room Database](https://developer.android.com/topic/libraries/architecture/room)
 - [Navigation Component](https://developer.android.com/guide/navigation)
 - [MVVM (Model-View-ViewModel)](https://developer.android.com/jetpack/docs/guide#recommended-app-arch)
 - [Dagger](https://dagger.dev)
+- [Picasso](https://square.github.io/picasso/)
 
  ## Update
  
