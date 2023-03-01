@@ -25,7 +25,7 @@ You can access all the data of SpaceX company with this application.What are the
 
  ## Update
  
-  -Details Section Added
+  -Details Section Added</br>
   -Faster interface
 
 ## Setup
