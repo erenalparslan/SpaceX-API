@@ -43,6 +43,8 @@ public class CapsuleFragment extends Fragment {
     RecyclerView recyclerView;
     CapsuleAdapter capsuleAdapter;
 
+
+
     public void loadData() {
         ICapsuleApi iCapsuleApi = retrofit.create(ICapsuleApi.class);
         Call<List<Capsule>> call = iCapsuleApi.getData();
