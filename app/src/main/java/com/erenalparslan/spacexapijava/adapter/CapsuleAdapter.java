@@ -75,8 +75,13 @@ public class CapsuleAdapter extends RecyclerView.Adapter<CapsuleAdapter.RowHolde
             itemView.setBackgroundColor(Color.parseColor(colors[position % 2]));
             serial_name = itemView.findViewById(R.id.capsuleName);
             details = itemView.findViewById(R.id.details);
+            if (capsule.details == null) {
+               capsule.details="No details found.";
+            } else {
+                details.setText(capsule.details);
+            }
             serial_name.setText(capsule.capsule_serial);
-            details.setText(capsule.details);
+
 
 
         }

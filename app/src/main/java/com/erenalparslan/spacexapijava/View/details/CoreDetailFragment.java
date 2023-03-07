@@ -1,11 +1,15 @@
 package com.erenalparslan.spacexapijava.View.details;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +58,21 @@ public class CoreDetailFragment extends Fragment {
 
         props.setText(details);
         twName.setText(name);
-        props1.setText("Status = "+status);
+
+        // Metin rengini değiştirmek için yeni bir SpannableString oluşturun
+        SpannableString spannableString1 = new SpannableString("Status = "+status);
+
+// Metnin belirli bir kısmını seçmek için başlangıç ve bitiş indekslerini kullanın
+        int startIndex1 = 0;
+        int endIndex1 = "Status =".length();
+
+
+// Metnin belirli bir kısmının rengini değiştirin
+        spannableString1.setSpan(new ForegroundColorSpan(Color.YELLOW), startIndex1, endIndex1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+// TextView'lerdeki metni yeni SpannableString'lerle değiştirin
+        props1.setText(spannableString1);
+
 
 
         super.onViewCreated(view, savedInstanceState);

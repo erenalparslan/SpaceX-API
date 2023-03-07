@@ -1,5 +1,6 @@
 package com.erenalparslan.spacexapijava.adapter;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,6 +71,12 @@ public class CoreAdapter extends RecyclerView.Adapter<CoreAdapter.RowHolder> {
             itemView.setBackgroundColor(Color.parseColor(colors[position % 2]));
             serial_name = itemView.findViewById(R.id.capsuleName);
             details = itemView.findViewById(R.id.details);
+            if (core.details == null) {
+                core.details="No details found.";
+            } else {
+                details.setText(core.details);
+            }
+
             serial_name.setText(core.core_serial);
             details.setText(core.details);
 
