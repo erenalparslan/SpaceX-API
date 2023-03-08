@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,12 +16,15 @@ import android.view.ViewGroup;
 import com.erenalparslan.spacexapijava.R;
 import com.erenalparslan.spacexapijava.adapter.RocketAdapter;
 import com.erenalparslan.spacexapijava.model.Rocket;
+import com.erenalparslan.spacexapijava.repository.RocketRepository;
 import com.erenalparslan.spacexapijava.service.SpacaeXApi;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,6 +46,49 @@ public class RocketFragment extends Fragment {
     Gson gson = new GsonBuilder().setLenient().create();
     RecyclerView recyclerView;
     RocketAdapter recyclerViewAdapter;
+    RocketRepository rocketRepository;
+    private Executor executor = Executors.newSingleThreadExecutor();
+
+  /*  private void loadRoom() {
+        SpacaeXApi spacaeXApi = retrofit.create(SpacaeXApi.class);
+        Call<List<Rocket>> call = spacaeXApi.getData();
+        call.enqueue(new Callback<List<Rocket>>() {
+
+            @Override
+            public void onResponse(Call<List<Rocket>> call, Response<List<Rocket>> response) {
+                if (response.isSuccessful()) {
+                    List<Rocket> responseList = response.body();
+                    rocketModel = new ArrayList<>(responseList);
+                    for (Rocket rocket : rocketModel) {
+                        rocketRepository.insertRocket(rocket);
+                    }
+
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Rocket>> call, Throwable t) {
+
+            }
+        });
+    }*/
+
+    private void observeRockets() {
+        rocketRepository=new RocketRepository(getContext());
+        rocketRepository.getUsers().observe(getViewLifecycleOwner(), new Observer<List<Rocket>>() {
+            @Override
+            public void onChanged(List<Rocket> rockets) {
+                if(rockets.isEmpty()){
+                 loadData();
+                }
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                recyclerViewAdapter = new RocketAdapter((ArrayList<Rocket>) rockets);
+                recyclerView.setAdapter(recyclerViewAdapter);
+            }
+        });
+    }
 
 
     private void loadData() {
@@ -53,9 +100,16 @@ public class RocketFragment extends Fragment {
                 if (response.isSuccessful()) {
                     List<Rocket> responseList = response.body();
                     rocketModel = new ArrayList<>(responseList);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    recyclerViewAdapter = new RocketAdapter(rocketModel);
-                    recyclerView.setAdapter(recyclerViewAdapter);
+                    rocketRepository=new RocketRepository(getContext());
+                    for (Rocket rocket : rocketModel) {
+                        executor.execute(new Runnable() { // Run the database operation on a separate thread
+                            @Override
+                            public void run() {
+                                rocketRepository.insertRocket(rocket);
+                            }
+                        });
+                    }
+
 
                 }
 
@@ -90,7 +144,9 @@ public class RocketFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recyclerRocket);
 
-        loadData();
+        observeRockets();
+
+
 
     }
 

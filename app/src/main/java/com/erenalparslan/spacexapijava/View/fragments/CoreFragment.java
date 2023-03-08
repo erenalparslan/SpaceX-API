@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,14 +14,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.erenalparslan.spacexapijava.R;
+
 import com.erenalparslan.spacexapijava.adapter.CoreAdapter;
+
+
 import com.erenalparslan.spacexapijava.model.Core;
+
+import com.erenalparslan.spacexapijava.repository.CoreRepository;
 import com.erenalparslan.spacexapijava.service.ICoreApi;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,6 +51,25 @@ public class CoreFragment extends Fragment {
     Gson gson = new GsonBuilder().setLenient().create();
     RecyclerView recyclerView;
     CoreAdapter coreAdapter;
+    CoreRepository coreRepository;
+    private Executor executor = Executors.newSingleThreadExecutor();
+
+
+    private void observeCore() {
+        coreRepository=new CoreRepository(getContext());
+        coreRepository.getCore().observe(getViewLifecycleOwner(), new Observer<List<Core>>() {
+            @Override
+            public void onChanged(List<Core> Cores) {
+                if(Cores.isEmpty()){
+                    loadData();
+                }
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                coreAdapter = new CoreAdapter((ArrayList<Core>) Cores );
+                recyclerView.setAdapter(coreAdapter);
+            }
+        });
+    }
+
 
     public void loadData() {
         ICoreApi iCoreApi = retrofit.create(ICoreApi.class);
@@ -53,9 +80,15 @@ public class CoreFragment extends Fragment {
                 if (response.isSuccessful()) {
                     List<Core> responseList = response.body();
                     core = new ArrayList<>(responseList);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    coreAdapter = new CoreAdapter(core);
-                    recyclerView.setAdapter(coreAdapter);
+                    coreRepository=new CoreRepository(getContext());
+                    for (Core core : core) {
+                        executor.execute(new Runnable() { // Run the database operation on a separate thread
+                            @Override
+                            public void run() {
+                                coreRepository.insertCore(core);
+                            }
+                        });
+                    }
 
                 }
             }
@@ -84,7 +117,7 @@ public class CoreFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         recyclerView = view.findViewById(R.id.recyclerCore);
-        loadData();
+      observeCore();
         super.onViewCreated(view, savedInstanceState);
     }
 }

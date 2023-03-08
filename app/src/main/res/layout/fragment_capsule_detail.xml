@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="299dp"
-        android:layout_height="wrap_content"
+        android:layout_width="286dp"
+        android:layout_height="179dp"
         android:layout_marginTop="57dp"
         android:src="@drawable/spacexlogo"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,7 +23,7 @@
         android:layout_width="287dp"
         android:layout_height="138dp"
         android:layout_marginStart="62dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="62dp"
         android:gravity="left"
         android:text="TextView"
@@ -32,6 +32,7 @@
         android:textStyle="bold"
         android:typeface="serif"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
@@ -39,9 +40,9 @@
         android:id="@+id/prop1"
         android:layout_width="286dp"
         android:layout_height="32dp"
-        android:layout_marginStart="63dp"
-        android:layout_marginTop="29dp"
-        android:layout_marginEnd="62dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="61dp"
         android:gravity="left"
         android:text="TextView"
         android:textColor="@color/white"
@@ -55,7 +56,7 @@
     <TextView
         android:id="@+id/prop2"
         android:layout_width="285dp"
-        android:layout_height="32dp"
+        android:layout_height="wrap_content"
 
         android:layout_marginStart="64dp"
         android:layout_marginTop="35dp"

@@ -1,7 +1,10 @@
 package com.erenalparslan.spacexapijava.model;
 
-import com.google.gson.annotations.SerializedName;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+@Entity
 public class Rocket {
     @SerializedName("description")
     public String description;
@@ -11,5 +14,8 @@ public class Rocket {
     public Boolean active;
     @SerializedName("country")
     public String country;
+    @PrimaryKey(autoGenerate = true)
+    public int rocketId=0;
 }
+
 

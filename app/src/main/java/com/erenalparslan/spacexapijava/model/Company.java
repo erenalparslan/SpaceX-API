@@ -1,8 +1,11 @@
 package com.erenalparslan.spacexapijava.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
+@Entity
 public class Company {
     @SerializedName("name")
     @Expose
@@ -22,5 +25,7 @@ public class Company {
     @SerializedName("valuation")
     public String valuation;
 
+    @PrimaryKey(autoGenerate = true)
+    public int companyId=0;
 
 }

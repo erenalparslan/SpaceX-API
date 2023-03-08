@@ -1,8 +1,11 @@
 package com.erenalparslan.spacexapijava.model;
 
 
-import com.google.gson.annotations.SerializedName;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+@Entity
 public class Capsule {
 
     @SerializedName("capsule_serial")
@@ -14,6 +17,8 @@ public class Capsule {
     @SerializedName("status")
     public String status;
 
+    @PrimaryKey(autoGenerate = true)
+    public int capsuleid=0;
 
 }
 

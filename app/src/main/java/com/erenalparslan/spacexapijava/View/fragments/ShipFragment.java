@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,14 +14,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.erenalparslan.spacexapijava.R;
+import com.erenalparslan.spacexapijava.adapter.CapsuleAdapter;
 import com.erenalparslan.spacexapijava.adapter.ShipAdapter;
+import com.erenalparslan.spacexapijava.model.Capsule;
 import com.erenalparslan.spacexapijava.model.Ship;
+import com.erenalparslan.spacexapijava.repository.CapsuleRepository;
+import com.erenalparslan.spacexapijava.repository.ShipRepository;
 import com.erenalparslan.spacexapijava.service.IShipApi;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,6 +48,23 @@ public class ShipFragment extends Fragment {
     Gson gson = new GsonBuilder().setLenient().create();
     RecyclerView recyclerView;
     ShipAdapter shipAdapter;
+    ShipRepository shipRepository;
+    private Executor executor = Executors.newSingleThreadExecutor();
+
+    private void observeShip() {
+        shipRepository=new ShipRepository(getContext());
+        shipRepository.getShip().observe(getViewLifecycleOwner(), new Observer<List<Ship>>() {
+            @Override
+            public void onChanged(List<Ship> ships) {
+                if(ships.isEmpty()){
+                    loadData();
+                }
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                shipAdapter = new ShipAdapter((ArrayList<Ship>) ships);
+                recyclerView.setAdapter(shipAdapter);
+            }
+        });
+    }
 
 
     public void loadData() {
@@ -52,9 +76,15 @@ public class ShipFragment extends Fragment {
                 if (response.isSuccessful()) {
                     List<Ship> responseList = response.body();
                     ships = new ArrayList<>(responseList);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    shipAdapter = new ShipAdapter(ships);
-                    recyclerView.setAdapter(shipAdapter);
+                    shipRepository=new ShipRepository(getContext());
+                    for (Ship ship : ships) {
+                        executor.execute(new Runnable() { // Run the database operation on a separate thread
+                            @Override
+                            public void run() {
+                                shipRepository.insertShip(ship);
+                            }
+                        });
+                    }
 
                 }
             }
@@ -84,7 +114,7 @@ public class ShipFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         recyclerView = view.findViewById(R.id.shipRecyclerView);
-        loadData();
+        observeShip();
 
         super.onViewCreated(view, savedInstanceState);
     }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,10 +15,19 @@ import android.view.ViewGroup;
 
 import com.erenalparslan.spacexapijava.R;
 import com.erenalparslan.spacexapijava.adapter.CompanyAdapter;
+import com.erenalparslan.spacexapijava.adapter.ShipAdapter;
 import com.erenalparslan.spacexapijava.model.Company;
+import com.erenalparslan.spacexapijava.model.Ship;
+import com.erenalparslan.spacexapijava.repository.CompanyRepository;
+import com.erenalparslan.spacexapijava.repository.ShipRepository;
 import com.erenalparslan.spacexapijava.service.ICompanyApi;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,6 +50,26 @@ public class CompanyFragment extends Fragment {
     Gson gson = new GsonBuilder().setLenient().create();
     RecyclerView recyclerView;
     CompanyAdapter companyAdapter;
+    CompanyRepository companyRepository;
+    private Executor executor = Executors.newSingleThreadExecutor();
+
+
+    private void observerCompany() {
+        companyRepository=new CompanyRepository(getContext());
+        companyRepository.getCompany().observe(getViewLifecycleOwner(), new Observer<List<Company>>() {
+            @Override
+            public void onChanged(List<Company> companies) {
+                if(companies.isEmpty()){
+                    loadData();
+                }
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                companyAdapter = new CompanyAdapter(companies.get(0));
+                recyclerView.setAdapter(companyAdapter);
+            }
+        });
+    }
+
+
 
     public void loadData() {
         ICompanyApi iCompanyApi = retrofit.create(ICompanyApi.class);
@@ -51,12 +81,20 @@ public class CompanyFragment extends Fragment {
                 if (response.isSuccessful()) {
                     Company company = response.body();
                     companies = company;
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    companyAdapter = new CompanyAdapter(companies);
-                    recyclerView.setAdapter(companyAdapter);
+                    companyRepository=new CompanyRepository(getContext());
+
+                        executor.execute(new Runnable() { // Run the database operation on a separate thread
+                            @Override
+                            public void run() {
+                                companyRepository.insertCompany(companies);
+                            }
+                        });
+
 
                 }
-            }
+
+                }
+
 
             @Override
             public void onFailure(Call<Company> call, Throwable t) {
@@ -81,7 +119,7 @@ public class CompanyFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         recyclerView = view.findViewById(R.id.companyRecycler);
-        loadData();
+     observerCompany();
         super.onViewCreated(view, savedInstanceState);
     }
 }

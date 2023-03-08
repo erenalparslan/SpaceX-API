@@ -1,7 +1,10 @@
 package com.erenalparslan.spacexapijava.model;
 
-import com.google.gson.annotations.SerializedName;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+import com.google.gson.annotations.SerializedName;
+@Entity
 public class Ship {
     @SerializedName("ship_name")
     public String ship_name;
@@ -11,16 +14,14 @@ public class Ship {
     public String home_port;
     @SerializedName("image")
     public String url;
+@PrimaryKey(autoGenerate = true)
+    public int shipId=0;
 
 
 
 
 
 
- /*   @SerializedName("ship_name")
-    public String ship_name;
-    @SerializedName("ship_type")
-    public String ship_type;*/
 
 
 }
