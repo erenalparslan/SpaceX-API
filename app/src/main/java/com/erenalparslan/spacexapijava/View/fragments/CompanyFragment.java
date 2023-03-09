@@ -59,10 +59,12 @@ public class CompanyFragment extends Fragment {
         companyRepository.getCompany().observe(getViewLifecycleOwner(), new Observer<List<Company>>() {
             @Override
             public void onChanged(List<Company> companies) {
-                if(companies.isEmpty()){
+                if(companies.size()==0){
+                    System.out.println(companies.size());
                     loadData();
                 }
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                System.out.println(companies.size());
                 companyAdapter = new CompanyAdapter(companies.get(0));
                 recyclerView.setAdapter(companyAdapter);
             }
@@ -82,17 +84,20 @@ public class CompanyFragment extends Fragment {
                     Company company = response.body();
                     companies = company;
                     companyRepository=new CompanyRepository(getContext());
+                    System.out.println(companies.name);
 
                         executor.execute(new Runnable() { // Run the database operation on a separate thread
                             @Override
                             public void run() {
                                 companyRepository.insertCompany(companies);
+                                observerCompany();
                             }
+
                         });
 
 
                 }
-
+                observerCompany();
                 }
 
 
@@ -119,6 +124,7 @@ public class CompanyFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         recyclerView = view.findViewById(R.id.companyRecycler);
+
      observerCompany();
         super.onViewCreated(view, savedInstanceState);
     }

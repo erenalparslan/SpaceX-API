@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,12 +22,14 @@ import com.erenalparslan.spacexapijava.adapter.CoreAdapter;
 
 import com.erenalparslan.spacexapijava.model.Core;
 
+import com.erenalparslan.spacexapijava.model.Ship;
 import com.erenalparslan.spacexapijava.repository.CoreRepository;
 import com.erenalparslan.spacexapijava.service.ICoreApi;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -63,6 +67,7 @@ public class CoreFragment extends Fragment {
                 if(Cores.isEmpty()){
                     loadData();
                 }
+                core=(ArrayList<Core>)Cores;
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 coreAdapter = new CoreAdapter((ArrayList<Core>) Cores );
                 recyclerView.setAdapter(coreAdapter);
@@ -100,6 +105,54 @@ public class CoreFragment extends Fragment {
         });
     }
 
+
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP |
+            ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END, 8) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull
+                RecyclerView.ViewHolder target) {
+
+
+            int fromPosition = viewHolder.getAdapterPosition();
+            int toPosition = target.getAdapterPosition();
+
+            Collections.swap(core, fromPosition, toPosition);
+
+            recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
+            return false;
+
+
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+            int position = viewHolder.getAdapterPosition() ;
+            executor.execute(new Runnable() { // Run the database operation on a separate thread
+                @Override
+                public void run() {
+                    switch (direction) {
+                        case ItemTouchHelper . RIGHT:
+                            coreRepository.deleteCore(core.get(position)); ;
+                            break;
+                        case ItemTouchHelper .LEFT:
+
+                            break;
+
+
+
+                    }
+
+                }
+            });
+
+
+
+
+        }
+
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,7 +170,15 @@ public class CoreFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         recyclerView = view.findViewById(R.id.recyclerCore);
-      observeCore();
+         observeCore();
+
+       DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this.getContext(), DividerItemDecoration.VERTICAL
+        );
+        recyclerView.addItemDecoration(dividerItemDecoration);
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
         super.onViewCreated(view, savedInstanceState);
     }
 }

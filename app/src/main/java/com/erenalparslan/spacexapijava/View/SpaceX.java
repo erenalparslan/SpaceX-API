@@ -58,6 +58,8 @@ public class SpaceX extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Coded by Eren Alparslan.", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+
             }
         });
     }
