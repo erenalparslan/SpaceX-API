@@ -28,4 +28,18 @@ public class Company {
     @PrimaryKey(autoGenerate = true)
     public int companyId=0;
 
+
+    public Company() {
+    }
+
+    public Company(String name, String founder, String founded, String employees, String ceo, String coo, String cto_propulsion, String valuation) {
+        this.name = name;
+        this.founder = founder;
+        this.founded = founded;
+        this.employees = employees;
+        this.ceo = ceo;
+        this.coo = coo;
+        this.cto_propulsion = cto_propulsion;
+        this.valuation = valuation;
+    }
 }

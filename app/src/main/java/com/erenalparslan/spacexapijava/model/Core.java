@@ -15,5 +15,9 @@ public class Core {
     @PrimaryKey(autoGenerate = true)
     public int coreId=0;
 
-
+    public Core(String core_serial, String details, String status) {
+        this.core_serial = core_serial;
+        this.details = details;
+        this.status = status;
+    }
 }

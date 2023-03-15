@@ -63,6 +63,7 @@ public class CompanyFragment extends Fragment {
                     System.out.println(companies.size());
                     loadData();
                 }
+                System.out.println(companies.get(0));
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 System.out.println(companies.size());
                 companyAdapter = new CompanyAdapter(companies.get(0));
@@ -90,14 +91,14 @@ public class CompanyFragment extends Fragment {
                             @Override
                             public void run() {
                                 companyRepository.insertCompany(companies);
-                                observerCompany();
+
                             }
 
                         });
 
-
+                    observerCompany();
                 }
-                observerCompany();
+
                 }
 
 
@@ -124,8 +125,7 @@ public class CompanyFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         recyclerView = view.findViewById(R.id.companyRecycler);
-
-     observerCompany();
+        loadData();
         super.onViewCreated(view, savedInstanceState);
     }
 }

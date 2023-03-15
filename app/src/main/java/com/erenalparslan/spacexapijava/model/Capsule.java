@@ -20,5 +20,11 @@ public class Capsule {
     @PrimaryKey(autoGenerate = true)
     public int capsuleid=0;
 
+    public Capsule(String capsule_serial, String details, String type, String status) {
+        this.capsule_serial = capsule_serial;
+        this.details = details;
+        this.type = type;
+        this.status = status;
+    }
 }
 

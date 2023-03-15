@@ -17,11 +17,10 @@ public class Ship {
 @PrimaryKey(autoGenerate = true)
     public int shipId=0;
 
-
-
-
-
-
-
-
+    public Ship(String ship_name, String ship_type, String home_port, String url) {
+        this.ship_name = ship_name;
+        this.ship_type = ship_type;
+        this.home_port = home_port;
+        this.url = url;
+    }
 }

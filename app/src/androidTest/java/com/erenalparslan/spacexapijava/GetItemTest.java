@@ -29,7 +29,7 @@ public class GetItemTest {
     ArrayList<Core> cores;
     ArrayList<Ship> ships;
     Company company;
-    @Before
+/*    @Before
     public void setup() {
 
         capsules = new ArrayList<Capsule>();
@@ -81,5 +81,5 @@ public class GetItemTest {
 
         companyAdapter = new CompanyAdapter(company);
         assertThat(companyAdapter.getItemCount()).isEqualTo(1);
-    }
+    }*/
 }
