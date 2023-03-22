@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0A2647"
-    tools:context=".View.details.ShipDetailFragment">
+    tools:context=".View.details.ShipDetailFragment"
+    android:id="@+id/shipConstraint">
 
 
     <ImageView

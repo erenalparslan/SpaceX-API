@@ -1,4 +1,4 @@
-package com.erenalparslan.spacexapijava;
+package com.erenalparslan.spacexapijava.dao;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -7,6 +7,7 @@ import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import com.erenalparslan.spacexapijava.LiveDataUtil;
 import com.erenalparslan.spacexapijava.dao.CoreDao;
 import com.erenalparslan.spacexapijava.dao.CoreDao;
 import com.erenalparslan.spacexapijava.database.SpacexDatabase;
